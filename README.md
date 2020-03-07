@@ -9,9 +9,7 @@ In our project we will attempt to answer the following questions:
 
 *	Ideal balance depending on amount of budget
 
-* Replicates Origin: Tradeoff between number of individuals
-
-and number of replicates from each one.
+* Replicates Origin: Tradeoff between number of individuals and number of replicates from each one.
 
 ## 💼 Workflow:
 

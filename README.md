@@ -1,4 +1,4 @@
-#  👨‍🔬 Bioinfornatics-project - 236523 👩‍🔬
+#  👨‍🔬 Bioinfornatics - project - 236523 👩‍🔬
 
 Studying the influence of sequencing coverage / replicates on differential analysis.
 
@@ -47,4 +47,5 @@ The data was taken from the experiment "Aging increases cell-to-cell transcripti
 
 ##	👥 Authors:
 [Noa Kirsh](https://github.com/NoaKirsh) and Itai Friedman.
+
 As a part of Bioinformatics project 236523 in the Technion.

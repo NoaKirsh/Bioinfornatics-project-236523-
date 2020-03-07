@@ -1,0 +1,84 @@
+---
+title: "Project_part2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE, cache=TRUE)
+library(ggplot2)
+theme_set(theme_bw(base_size=16) + theme(strip.background = element_blank()))
+library(readr)
+library(dplyr)
+library(magrittr)
+library(ggplot2)
+library(tibble)
+library(DESeq2)
+```
+
+############################
+# Calcultaing Ground-Truth #
+############################
+
+```{r pressure, echo=FALSE}
+
+gt_rawcounts <- read.csv(file ="csv_new_rowcounts.csv", row.names=1)
+gt_metadata  <- read.csv(file ="csv_new_metadata.csv", row.names=1)
+
+#young_metadataRN <- data.frame(young_metadata, row.names = 6)
+ground_truth_dds <- DESeqDataSetFromMatrix(countData=gt_rawcounts, colData=gt_metadata, design=~Stimulus)
+ground_truth_dds <- DESeq(ground_truth_dds)
+ground_truth_res <- results(ground_truth_dds, tidy=TRUE)
+ground_truth_res <- tbl_df(ground_truth_res)
+ground_truth_res_soretd <- ground_truth_res %>% arrange(padj)
+ground_truth_res_soretd[is.na(ground_truth_res_soretd)] <- 1
+write_csv(ground_truth_res_soretd,"DESEQ_ground_truth.csv")
+
+
+```
+
+#################################################
+# Reading the CSV files, deseq2, cor and saving #
+#################################################
+
+```{r pressure, echo=FALSE}
+
+gt_deseq <- read.csv(file ="DESEQ_ground_truth.csv", row.names=1)
+
+the_table <- data.frame(matrix(ncol=6, nrow=0))
+colnames(the_table) <- c("Num of reads" ,"Coverage percentage","Num of mice", "Num of samples", "Samples-mice ratio", "Score")
+
+gt_rawcounts <- read.csv(file ="DESEQ_ground_truth.csv", row.names=1)
+
+for (num_of_good_samples in c(300,320,340,360,380,400,420,440,460,480,500,520)){
+  for (num_of_mice in c(1,2,3,4,5,6,7,8,9)) {
+    for (percentage_of_samples in c(60,70,80,90,100)) {
+      for (coverage_percentage in c(40,50,60,70,80,90,100,110,120,130,140)) {
+        print(c(num_of_good_samples,num_of_mice,percentage_of_samples,coverage_percentage))
+        
+        pattern <- paste(num_of_good_samples, num_of_mice, percentage_of_samples, coverage_percentage, sep="_")
+        files <- list.files(path=".", pattern=pattern, full.names=TRUE, recursive=FALSE)
+        metadata <- read.csv(paste(pattern, 'metadata.csv', sep="_"), row.names=1)
+        rawcounts <- read.csv(paste(pattern, 'rawcounts.csv', sep="_"), row.names=1)        
+        num_reads <- sum(colSums(rawcounts))
+        num_samples <- nrow(metadata)
+        
+        cur_dds <- DESeqDataSetFromMatrix(countData=rawcounts, colData=metadata, design=~Stimulus)
+        cur_dds <- DESeq(cur_dds)
+        cur_res <- results(cur_dds, tidy=TRUE)
+        cur_res <- tbl_df(cur_res)
+        cur_res_soretd <- cur_res %>% arrange(padj)
+        cur_res_soretd[is.na(cur_res_soretd)] <- 1
+        write_csv(cur_res_soretd,paste(pattern, "deseq.csv", sep="_"))
+        cur_score <- cor(ground_truth_res_soretd$padj, cur_res_soretd$padj)
+        cur_features <- c(num_reads, coverage_percentage, num_of_mice, num_samples, num_samples/num_of_mice, cur_score)
+        the_table[nrow(the_table)+1,] <- cur_features
+      }
+    }
+  }
+}
+
+write_csv(the_table,"The Table.csv")
+
+```

@@ -5,7 +5,7 @@ Studying the influence of sequencing coverage / replicates on differential analy
 ## ❓ Main questions:
 
 In our project we will attempt to answer the following questions:
-*	Primary: What is the ideal balance between coverage and replicates for a given budget?
+*	What is the ideal balance between coverage and replicates for a given budget?
 
 *	Ideal balance depending on amount of budget
 

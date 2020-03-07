@@ -1,4 +1,4 @@
-# Bioinfornatics-project - 236523 
+#  👨‍🔬 Bioinfornatics-project - 236523 👩‍🔬
 
 Studying the influence of sequencing coverage / replicates on differential analysis.
 
@@ -33,6 +33,7 @@ and number of replicates from each one.
 
 * Analysing the results in suitable graphs and conclusions.
 
+
 ## 📃 Files in our system:
 
 * Coverage.py - Coverage simulator that prepers the data, removes low quality data, chooses the random samples and perform the coverage generations.
@@ -41,10 +42,11 @@ and number of replicates from each one.
 
 * graphs.py - Analzise the data in the table in graphs to allow us to understand the results and answer our questions.
 
+
 ## 🐭 The data:
 The data was taken from the experiment "Aging increases cell-to-cell transcriptional variability upon immune stimulation" that was published in "Science" by the AAAS. Our data consists of RNA taken from mice's T cells and was organized by gene reads. Meaning, in order to analyze sequencing coverage, we'll use the genes reads instead of single nucleotides reads.
 
-## 👨‍🔬  👱‍♀ Authors:
 
+##	👥 Authors:
 [Noa Kirsh](https://github.com/NoaKirsh) and Itai Friedman.
 As a part of Bioinformatics project 236523 in the Technion.

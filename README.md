@@ -2,7 +2,6 @@
 
 Studying the influence of sequencing coverage / replicates on differential analysis.
 
-
 ## ❓ Main questions:
 
 In our project we will attempt to answer the following questions:
@@ -47,6 +46,6 @@ The data was taken from the experiment "Aging increases cell-to-cell transcripti
 
 
 ##	👥 Authors:
-[Noa Kirsh](https://github.com/NoaKirsh) and Itai Friedman.
+[Noa Kirsh](https://github.com/NoaKirsh) and Itai Friedman (https://github.com/ItaiF).
 
 As a part of Bioinformatics project 236523 in the Technion.
